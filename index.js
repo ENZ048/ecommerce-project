@@ -1,9 +1,11 @@
 const express = require('express');
 const userRoutes = require('./routes/userRoutes');
 const mongoose = require('mongoose');
-const PORT = 5000;
+const PORT = 5001;
 
 const app = express();
+
+app.use(express.json());
 
 app.use('/', userRoutes);
 
