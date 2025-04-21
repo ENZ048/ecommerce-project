@@ -1,13 +1,21 @@
 const express = require('express');
-const PORT = 4848;
+const userRoutes = require('./routes/userRoutes');
+const mongoose = require('mongoose');
+const PORT = 5000;
 
 const app = express();
 
-app.listen(PORT, (err)=>{
-    if(err){
+app.use('/', userRoutes);
+
+mongoose.connect('mongodb+srv://pratikyesare68:jioaCLJ72S5MVDD3@ecommerce-app.hxfww0m.mongodb.net/?retryWrites=true&w=majority&appName=ecommerce-app').
+    then(() => console.log('Connected to MongoDB Successfully')).
+    catch((err) => console.log('Error Connecting to MongoDB', err));
+
+app.listen(PORT, (err) => {
+    if (err) {
         console.log("Error listening to the server");
     }
-    else{
+    else {
         console.log(`Listening to the server at ${PORT}`);
     }
 })
