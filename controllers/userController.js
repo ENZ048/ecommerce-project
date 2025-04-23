@@ -17,7 +17,25 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try{
+        const user = await userModel.findOne({email: req.body.email});
 
+        if(!user){
+            res.status(404).json({
+                message: "No user registered with this email. SignUp instead"
+            });
+        }
+
+        if(user.password !== req.body.password){
+            res.status(400).json({
+                message: "Invalid email or password"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "User Logged in successfully",
+            user: user
+        });
     }
     catch(err){
         console.log("Error loging in the user", err);
