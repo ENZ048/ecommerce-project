@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     firstName:{
@@ -48,6 +49,12 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ["male", "female", "others"]
     }
+})
+
+userSchema.pre('save', async function() {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+    this.password = hashedPassword;
 })
 
 const userModel = mongoose.model("userModel", userSchema);
