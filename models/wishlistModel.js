@@ -5,7 +5,7 @@ const WishlistSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true,
         ref: "userModel",
-        unique: true  // one wishlist per user
+        unique: true
     },
     products: [
         {
