@@ -296,3 +296,136 @@ Handles adding, updating, fetching, and removing products in the user's cart.
 
 
 ---
+## Order API
+
+The Order API provides functionalities for placing orders, updating order status, and retrieving user orders.
+
+### Endpoints
+
+### 1. Place Order
+
+- **URL:** `/order`
+- **Method:** `POST`
+- **Description:** Places a new order in the database.
+- **Request Body:**
+  ```json
+  {
+    "userId": "user_id_here",
+    "products": [
+      {
+        "productId": "product_id_here",
+        "qty": 2
+      }
+    ],
+    "totalAmount": 200,
+    "address": "123 Street, City"
+  }
+  ```
+
+- **Response (Success):**
+  ```json
+  {
+    "success": true,
+    "message": "Order placed successfully",
+    "order": {
+      "_id": "order_id_here",
+      "userId": "user_id_here",
+      "products": [
+        {
+          "productId": "product_id_here",
+          "qty": 2
+        }
+      ],
+      "totalAmount": 200,
+      "address": "123 Street, City",
+      "status": "placed",
+      "createdAt": "timestamp_here",
+      "updatedAt": "timestamp_here",
+      "__v": 0
+    }
+  }
+  ```
+
+---
+
+### 2. Update Order Status
+
+- **URL:** `/order/update`
+- **Method:** `PUT`
+- **Description:** Updates the status of an existing order.
+- **Request Body:**
+  ```json
+  {
+    "orderId": "order_id_here",
+    "status": "shipped"
+  }
+  ```
+
+- **Response (Success):**
+  ```json
+  {
+    "success": true,
+    "message": "Order status updated",
+    "order": {
+      "_id": "order_id_here",
+      "userId": "user_id_here",
+      "products": [
+        {
+          "productId": "product_id_here",
+          "qty": 2
+        }
+      ],
+      "totalAmount": 200,
+      "address": "123 Street, City",
+      "status": "shipped",
+      "createdAt": "timestamp_here",
+      "updatedAt": "timestamp_here",
+      "__v": 0
+    }
+  }
+  ```
+
+- **Response (Failure - Order Not Found):**
+  ```json
+  {
+    "success": false,
+    "message": "Order not found"
+  }
+  ```
+
+---
+
+### 3. Get User Orders
+
+- **URL:** `/order/:userId`
+- **Method:** `GET`
+- **Description:** Retrieves all orders placed by a specific user.
+
+- **Response (Success):**
+  ```json
+  {
+    "success": true,
+    "orders": [
+      {
+        "_id": "order_id_here",
+        "userId": "user_id_here",
+        "products": [
+          {
+            "productId": {
+              "_id": "product_id_here",
+              "name": "Product Name",
+              "price": 100
+            },
+            "qty": 2
+          }
+        ],
+        "totalAmount": 200,
+        "address": "123 Street, City",
+        "status": "placed",
+        "createdAt": "timestamp_here",
+        "updatedAt": "timestamp_here",
+        "__v": 0
+      }
+    ]
+  }
+  ```
